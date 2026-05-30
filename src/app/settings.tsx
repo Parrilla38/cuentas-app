@@ -165,6 +165,18 @@ export default function SettingsScreen() {
           </Card>
         </Pressable>
 
+        <Pressable onPress={() => router.push('/help' as any)}>
+          <Card>
+            <View style={styles.settingRow}>
+              <View style={styles.settingLeft}>
+                <Icon name="book.outline" size={20} color={Colors.accentCyan} />
+                <Text style={styles.settingLabel}>Guía de la app</Text>
+              </View>
+              <Icon name="chevron.left" size={16} color={Colors.textSecondary} />
+            </View>
+          </Card>
+        </Pressable>
+
         <Text style={styles.sectionTitle}>Metas de ahorro</Text>
         <Pressable onPress={() => router.push('/savings' as any)}>
           <Card>

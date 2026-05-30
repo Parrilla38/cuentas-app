@@ -43,6 +43,7 @@ const SYMBOL_MAP: Record<string, keyof typeof Ionicons.glyphMap> = {
   'gift.fill': 'gift',
   'chart.line.uptrend.xyaxis': 'trending-up',
   'arrow.down.circle.fill': 'arrow-down-circle',
+  'book.outline': 'book-outline',
 }
 
 export function Icon({ name, size = 24, color = '#000' }: IconProps) {
