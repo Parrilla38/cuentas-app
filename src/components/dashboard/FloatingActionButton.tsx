@@ -1,8 +1,5 @@
 import { Pressable, StyleSheet, View } from 'react-native'
 import { useRouter } from 'expo-router'
-import { Ionicons } from '@expo/vector-icons'
-
-import { Colors, Spacing, Shadow } from '@/constants'
 
 export function FloatingActionButton() {
   const router = useRouter()
@@ -13,7 +10,10 @@ export function FloatingActionButton() {
       onPress={() => router.push('/transaction/add')}
     >
       <View style={styles.button}>
-        <Ionicons name="add" size={28} color="#FFFFFF" />
+        <View style={styles.plusIcon}>
+          <View style={styles.plusHorizontal} />
+          <View style={styles.plusVertical} />
+        </View>
       </View>
     </Pressable>
   )
@@ -22,17 +22,41 @@ export function FloatingActionButton() {
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    bottom: Spacing.lg,
-    right: Spacing.lg,
-    ...Shadow.large,
+    bottom: 24,
+    right: 24,
   },
   button: {
     width: 56,
     height: 56,
     borderRadius: 28,
-    backgroundColor: Colors.accentCyan,
+    backgroundColor: '#06B6D4',
     alignItems: 'center',
     justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    elevation: 5,
+  },
+  plusIcon: {
+    width: 24,
+    height: 24,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  plusHorizontal: {
+    position: 'absolute',
+    width: 24,
+    height: 3,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 1.5,
+  },
+  plusVertical: {
+    position: 'absolute',
+    width: 3,
+    height: 24,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 1.5,
   },
   pressed: {
     opacity: 0.85,

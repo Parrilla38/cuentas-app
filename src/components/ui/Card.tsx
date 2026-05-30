@@ -1,7 +1,5 @@
 import { StyleSheet, View, ViewStyle } from 'react-native'
 
-import { BorderRadius, Colors, Spacing } from '@/constants'
-
 interface CardProps {
   children: React.ReactNode
   style?: ViewStyle
@@ -13,10 +11,10 @@ export function Card({ children, style }: CardProps) {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: Colors.card,
-    borderRadius: BorderRadius.lg,
-    padding: Spacing.md,
+    backgroundColor: '#F5F5F5',
+    borderRadius: 16,
+    padding: 16,
     borderWidth: 1,
-    borderColor: Colors.border,
+    borderColor: '#E4E4E7',
   },
 })

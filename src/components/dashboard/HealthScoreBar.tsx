@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native'
 
-import { Card, BorderRadius, Colors, FontSize, FontWeight, Spacing } from '@/constants'
+import { BorderRadius, Colors, FontSize, FontWeight, Spacing } from '@/constants'
 import { getScoreColor, getScoreLabel } from '@/services/health-score'
 
 interface HealthScoreBarProps {
@@ -12,46 +12,37 @@ export function HealthScoreBar({ score }: HealthScoreBarProps) {
   const label = getScoreLabel(score)
 
   return (
-    <Card style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.header}>
-        <View style={styles.titleRow}>
-          <View style={[styles.iconDot, { backgroundColor: color }]} />
-          <Text style={styles.title}>Salud financiera</Text>
-        </View>
+        <Text style={styles.title}>Salud financiera</Text>
         <Text style={[styles.score, { color }]}>{score}</Text>
       </View>
       <View style={styles.barBackground}>
         <View style={[styles.barFill, { width: `${score}%`, backgroundColor: color }]} />
       </View>
       <Text style={[styles.label, { color }]}>{label}</Text>
-    </Card>
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    padding: Spacing.lg,
+    backgroundColor: '#F5F5F5',
+    borderRadius: BorderRadius.lg,
+    padding: Spacing.md,
+    borderWidth: 1,
+    borderColor: '#E4E4E7',
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: Spacing.md,
-  },
-  titleRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: Spacing.sm,
-  },
-  iconDot: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
+    marginBottom: Spacing.sm,
   },
   title: {
     fontSize: FontSize.md,
     fontWeight: FontWeight.semibold,
-    color: Colors.textPrimary,
+    color: '#18181B',
   },
   score: {
     fontSize: FontSize.xxl,
@@ -59,7 +50,7 @@ const styles = StyleSheet.create({
   },
   barBackground: {
     height: 8,
-    backgroundColor: Colors.border,
+    backgroundColor: '#E4E4E7',
     borderRadius: 4,
     overflow: 'hidden',
   },
@@ -70,6 +61,6 @@ const styles = StyleSheet.create({
   label: {
     fontSize: FontSize.sm,
     fontWeight: FontWeight.medium,
-    marginTop: Spacing.sm,
+    marginTop: Spacing.xs,
   },
 })

@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native'
 
-import { Card, BorderRadius, Colors, FontSize, FontWeight, Spacing } from '@/constants'
+import { BorderRadius, Colors, FontSize, FontWeight, Spacing } from '@/constants'
 import { formatCurrency } from '@/utils/format'
 
 interface HeroCardProps {
@@ -11,7 +11,7 @@ interface HeroCardProps {
 
 export function HeroCard({ income, expense, savings }: HeroCardProps) {
   return (
-    <Card style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.mainSection}>
         <Text style={styles.label}>Ahorro del mes</Text>
         <Text style={[styles.amount, savings < 0 && styles.negative]}>
@@ -31,17 +31,19 @@ export function HeroCard({ income, expense, savings }: HeroCardProps) {
           <Text style={styles.statAmount}>{formatCurrency(expense)}</Text>
         </View>
       </View>
-    </Card>
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    padding: 0,
+    borderRadius: BorderRadius.lg,
     overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: Colors.border,
   },
   mainSection: {
-    backgroundColor: Colors.accentCyan,
+    backgroundColor: '#06B6D4',
     paddingVertical: Spacing.xl,
     alignItems: 'center',
   },
@@ -62,6 +64,7 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     padding: Spacing.md,
+    backgroundColor: '#F5F5F5',
     gap: Spacing.md,
   },
   statCard: {
@@ -76,19 +79,19 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   incomeDot: {
-    backgroundColor: Colors.success,
+    backgroundColor: '#22C55E',
   },
   expenseDot: {
-    backgroundColor: Colors.danger,
+    backgroundColor: '#EF4444',
   },
   statLabel: {
     fontSize: FontSize.sm,
-    color: Colors.textSecondary,
+    color: '#71717A',
   },
   statAmount: {
     fontSize: FontSize.lg,
     fontWeight: FontWeight.semibold,
-    color: Colors.textPrimary,
+    color: '#18181B',
     marginLeft: 'auto',
   },
 })

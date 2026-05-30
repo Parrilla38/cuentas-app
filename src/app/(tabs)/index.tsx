@@ -2,7 +2,6 @@ import { useCallback, useEffect } from 'react'
 import { ActivityIndicator, Pressable, RefreshControl, ScrollView, StyleSheet, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useRouter } from 'expo-router'
-import { Ionicons } from '@expo/vector-icons'
 
 import {
   BudgetAlerts,
@@ -13,7 +12,7 @@ import {
   SavingsProgress,
   UpcomingPayments,
 } from '@/components/dashboard'
-import { Card, Colors, FontSize, FontWeight, Spacing, Shadow } from '@/constants'
+import { Card, Colors, FontSize, FontWeight, Spacing } from '@/constants'
 import { calculateHealthScore } from '@/services/health-score'
 import { useDashboardStore } from '@/stores/dashboard'
 import { useAuthStore } from '@/stores/auth'
@@ -58,7 +57,7 @@ export default function DashboardScreen() {
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color={Colors.accentCyan} />
+          <Text style={styles.loadingText}>Cargando...</Text>
         </View>
       </SafeAreaView>
     )
@@ -80,13 +79,13 @@ export default function DashboardScreen() {
       >
         <View style={styles.header}>
           <View>
-            <Text style={styles.greeting}>Hola 👋</Text>
+            <Text style={styles.greeting}>Hola</Text>
             <Text style={styles.month}>
               {MONTH_NAMES[currentMonth - 1]} {currentYear}
             </Text>
           </View>
           <Pressable onPress={() => router.push('/settings' as any)} style={styles.settingsButton}>
-            <Ionicons name="settings-outline" size={22} color={Colors.textSecondary} />
+            <Text style={styles.settingsIcon}>⚙</Text>
           </Pressable>
         </View>
 
@@ -125,6 +124,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  loadingText: {
+    fontSize: FontSize.md,
+    color: Colors.textSecondary,
+  },
   scrollView: {
     flex: 1,
   },
@@ -146,7 +149,11 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.card,
     alignItems: 'center',
     justifyContent: 'center',
-    ...Shadow.small,
+    borderWidth: 1,
+    borderColor: Colors.border,
+  },
+  settingsIcon: {
+    fontSize: 20,
   },
   greeting: {
     fontSize: FontSize.xl,
