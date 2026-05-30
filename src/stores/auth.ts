@@ -101,7 +101,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: 'https://cuentas-app-eta.vercel.app/auth',
+        redirectTo: 'https://cuentas-app-eta.vercel.app/auth/callback',
       },
     })
     if (error) throw error
