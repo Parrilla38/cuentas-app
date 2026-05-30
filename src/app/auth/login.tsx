@@ -14,7 +14,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { Ionicons } from '@expo/vector-icons'
 
 import { Button } from '@/components/ui'
-import { Colors, FontSize, FontWeight, Spacing, BorderRadius } from '@/constants'
+import { Colors, FontSize, FontWeight, Spacing, BorderRadius, Shadow } from '@/constants'
 import { useAuthStore } from '@/stores/auth'
 import { showAlert } from '@/utils/alert'
 
@@ -65,11 +65,16 @@ export default function LoginScreen() {
           keyboardShouldPersistTaps="handled"
         >
           <View style={styles.header}>
+            <View style={styles.logoContainer}>
+              <View style={styles.logoIcon}>
+                <Ionicons name="wallet-outline" size={40} color="#FFFFFF" />
+              </View>
+            </View>
             <Text style={styles.title}>Cuentas</Text>
-            <Text style={styles.subtitle}>Inicia sesión para continuar</Text>
+            <Text style={styles.subtitle}>Gestiona tus finanzas fácil</Text>
           </View>
 
-          <View style={styles.form}>
+          <View style={styles.card}>
             <View style={styles.inputGroup}>
               <Text style={styles.label}>Email</Text>
               <TextInput
@@ -106,31 +111,31 @@ export default function LoginScreen() {
               onPress={handleLogin}
               disabled={isLoading}
             />
-
-            <View style={styles.divider}>
-              <View style={styles.dividerLine} />
-              <Text style={styles.dividerText}>o</Text>
-              <View style={styles.dividerLine} />
-            </View>
-
-            <Pressable
-              onPress={handleGoogleLogin}
-              style={styles.googleButton}
-              disabled={isLoading}
-            >
-              <Ionicons name="logo-google" size={20} color={Colors.textPrimary} />
-              <Text style={styles.googleButtonText}>Continuar con Google</Text>
-            </Pressable>
-
-            <Pressable
-              onPress={() => router.push('/auth/register' as any)}
-              style={styles.registerButton}
-            >
-              <Text style={styles.registerText}>
-                ¿No tienes cuenta? <Text style={styles.registerLink}>Regístrate</Text>
-              </Text>
-            </Pressable>
           </View>
+
+          <View style={styles.divider}>
+            <View style={styles.dividerLine} />
+            <Text style={styles.dividerText}>o</Text>
+            <View style={styles.dividerLine} />
+          </View>
+
+          <Pressable
+            onPress={handleGoogleLogin}
+            style={({ pressed }) => [styles.googleButton, pressed && styles.pressed]}
+            disabled={isLoading}
+          >
+            <Ionicons name="logo-google" size={20} color={Colors.textPrimary} />
+            <Text style={styles.googleButtonText}>Continuar con Google</Text>
+          </Pressable>
+
+          <Pressable
+            onPress={() => router.push('/auth/register' as any)}
+            style={styles.registerButton}
+          >
+            <Text style={styles.registerText}>
+              ¿No tienes cuenta? <Text style={styles.registerLink}>Regístrate</Text>
+            </Text>
+          </Pressable>
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
@@ -152,17 +157,35 @@ const styles = StyleSheet.create({
   },
   header: {
     alignItems: 'center',
-    marginBottom: Spacing.xxl,
+    marginBottom: Spacing.xl,
+  },
+  logoContainer: {
+    marginBottom: Spacing.md,
+  },
+  logoIcon: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    backgroundColor: Colors.accentCyan,
+    alignItems: 'center',
+    justifyContent: 'center',
+    ...Shadow.medium,
   },
   title: {
     fontSize: FontSize.hero,
     fontWeight: FontWeight.bold,
     color: Colors.textPrimary,
-    marginBottom: Spacing.sm,
+    marginBottom: Spacing.xs,
   },
   subtitle: {
     fontSize: FontSize.md,
     color: Colors.textSecondary,
+  },
+  card: {
+    backgroundColor: Colors.card,
+    borderRadius: BorderRadius.xl,
+    padding: Spacing.lg,
+    ...Shadow.medium,
   },
   form: {
     gap: Spacing.lg,
@@ -176,10 +199,10 @@ const styles = StyleSheet.create({
     color: Colors.textSecondary,
   },
   input: {
-    backgroundColor: Colors.card,
+    backgroundColor: Colors.background,
     borderRadius: BorderRadius.md,
     paddingHorizontal: Spacing.md,
-    paddingVertical: Spacing.sm,
+    paddingVertical: Spacing.md,
     color: Colors.textPrimary,
     fontSize: FontSize.md,
     borderWidth: 1,
@@ -190,11 +213,13 @@ const styles = StyleSheet.create({
     color: Colors.accentCyan,
     textAlign: 'right',
     marginTop: -Spacing.sm,
+    marginBottom: Spacing.md,
   },
   divider: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: Spacing.md,
+    marginVertical: Spacing.lg,
   },
   dividerLine: {
     flex: 1,
@@ -213,17 +238,19 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.card,
     borderRadius: BorderRadius.md,
     paddingVertical: Spacing.md,
-    borderWidth: 1,
-    borderColor: Colors.border,
+    ...Shadow.small,
   },
   googleButtonText: {
     fontSize: FontSize.md,
     fontWeight: FontWeight.medium,
     color: Colors.textPrimary,
   },
+  pressed: {
+    opacity: 0.8,
+  },
   registerButton: {
     alignItems: 'center',
-    padding: Spacing.md,
+    padding: Spacing.lg,
   },
   registerText: {
     fontSize: FontSize.md,

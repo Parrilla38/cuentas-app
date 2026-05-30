@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native'
 
-import { BorderRadius, Colors, FontSize, FontWeight, Spacing } from '@/constants'
+import { Card, BorderRadius, Colors, FontSize, FontWeight, Spacing } from '@/constants'
 import { getScoreColor, getScoreLabel } from '@/services/health-score'
 
 interface HealthScoreBarProps {
@@ -12,26 +12,25 @@ export function HealthScoreBar({ score }: HealthScoreBarProps) {
   const label = getScoreLabel(score)
 
   return (
-    <View style={styles.container}>
+    <Card style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>Salud financiera</Text>
+        <View style={styles.titleRow}>
+          <View style={[styles.iconDot, { backgroundColor: color }]} />
+          <Text style={styles.title}>Salud financiera</Text>
+        </View>
         <Text style={[styles.score, { color }]}>{score}</Text>
       </View>
       <View style={styles.barBackground}>
         <View style={[styles.barFill, { width: `${score}%`, backgroundColor: color }]} />
       </View>
       <Text style={[styles.label, { color }]}>{label}</Text>
-    </View>
+    </Card>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.card,
-    borderRadius: BorderRadius.xl,
     padding: Spacing.lg,
-    borderWidth: 1,
-    borderColor: Colors.border,
   },
   header: {
     flexDirection: 'row',
@@ -39,8 +38,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: Spacing.md,
   },
+  titleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Spacing.sm,
+  },
+  iconDot: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+  },
   title: {
-    fontSize: FontSize.lg,
+    fontSize: FontSize.md,
     fontWeight: FontWeight.semibold,
     color: Colors.textPrimary,
   },
@@ -49,14 +58,14 @@ const styles = StyleSheet.create({
     fontWeight: FontWeight.bold,
   },
   barBackground: {
-    height: 12,
-    backgroundColor: 'rgba(255,255,255,0.1)',
-    borderRadius: 6,
+    height: 8,
+    backgroundColor: Colors.border,
+    borderRadius: 4,
     overflow: 'hidden',
   },
   barFill: {
     height: '100%',
-    borderRadius: 6,
+    borderRadius: 4,
   },
   label: {
     fontSize: FontSize.sm,

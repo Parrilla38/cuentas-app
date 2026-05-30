@@ -2,6 +2,7 @@ import { useCallback, useEffect } from 'react'
 import { ActivityIndicator, Pressable, RefreshControl, ScrollView, StyleSheet, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useRouter } from 'expo-router'
+import { Ionicons } from '@expo/vector-icons'
 
 import {
   BudgetAlerts,
@@ -12,8 +13,7 @@ import {
   SavingsProgress,
   UpcomingPayments,
 } from '@/components/dashboard'
-import { Icon } from '@/components/ui/Icon'
-import { Colors, FontSize, FontWeight, Spacing } from '@/constants'
+import { Card, Colors, FontSize, FontWeight, Spacing, Shadow } from '@/constants'
 import { calculateHealthScore } from '@/services/health-score'
 import { useDashboardStore } from '@/stores/dashboard'
 import { useAuthStore } from '@/stores/auth'
@@ -80,13 +80,13 @@ export default function DashboardScreen() {
       >
         <View style={styles.header}>
           <View>
-            <Text style={styles.greeting}>Hola</Text>
+            <Text style={styles.greeting}>Hola 👋</Text>
             <Text style={styles.month}>
               {MONTH_NAMES[currentMonth - 1]} {currentYear}
             </Text>
           </View>
           <Pressable onPress={() => router.push('/settings' as any)} style={styles.settingsButton}>
-            <Icon name="ellipsis.circle.fill" size={24} color={Colors.textSecondary} />
+            <Ionicons name="settings-outline" size={22} color={Colors.textSecondary} />
           </Pressable>
         </View>
 
@@ -98,7 +98,10 @@ export default function DashboardScreen() {
 
         <HealthScoreBar score={healthScore.score} />
 
-        <ExpenseDonutChart data={categorySpending} />
+        <Card>
+          <Text style={styles.sectionTitle}>Gastos por categoría</Text>
+          <ExpenseDonutChart data={categorySpending} />
+        </Card>
 
         <BudgetAlerts budgets={budgets} />
 
@@ -134,18 +137,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: Spacing.sm,
+    marginBottom: Spacing.md,
   },
   settingsButton: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: 44,
+    height: 44,
+    borderRadius: 22,
     backgroundColor: Colors.card,
     alignItems: 'center',
     justifyContent: 'center',
+    ...Shadow.small,
   },
   greeting: {
-    fontSize: FontSize.xxl,
+    fontSize: FontSize.xl,
     fontWeight: FontWeight.bold,
     color: Colors.textPrimary,
   },
@@ -153,5 +157,11 @@ const styles = StyleSheet.create({
     fontSize: FontSize.md,
     color: Colors.textSecondary,
     marginTop: Spacing.xs,
+  },
+  sectionTitle: {
+    fontSize: FontSize.lg,
+    fontWeight: FontWeight.semibold,
+    color: Colors.textPrimary,
+    marginBottom: Spacing.md,
   },
 })

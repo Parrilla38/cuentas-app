@@ -1,9 +1,8 @@
-import { LinearGradient } from 'expo-linear-gradient'
-import { Pressable, StyleSheet } from 'react-native'
+import { Pressable, StyleSheet, View } from 'react-native'
 import { useRouter } from 'expo-router'
+import { Ionicons } from '@expo/vector-icons'
 
-import { Icon } from '@/components/ui/Icon'
-import { Colors, Spacing } from '@/constants'
+import { Colors, Spacing, Shadow } from '@/constants'
 
 export function FloatingActionButton() {
   const router = useRouter()
@@ -13,14 +12,9 @@ export function FloatingActionButton() {
       style={({ pressed }) => [styles.container, pressed && styles.pressed]}
       onPress={() => router.push('/transaction/add')}
     >
-      <LinearGradient
-        colors={[Colors.accentCyan, Colors.accentViolet]}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-        style={styles.gradient}
-      >
-        <Icon name="plus" size={28} color={Colors.textPrimary} />
-      </LinearGradient>
+      <View style={styles.button}>
+        <Ionicons name="add" size={28} color="#FFFFFF" />
+      </View>
     </Pressable>
   )
 }
@@ -30,20 +24,15 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: Spacing.lg,
     right: Spacing.lg,
-    borderRadius: 28,
-    overflow: 'hidden',
-    elevation: 8,
-    shadowColor: Colors.accentCyan,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.4,
-    shadowRadius: 8,
+    ...Shadow.large,
   },
-  gradient: {
+  button: {
     width: 56,
     height: 56,
+    borderRadius: 28,
+    backgroundColor: Colors.accentCyan,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 28,
   },
   pressed: {
     opacity: 0.85,

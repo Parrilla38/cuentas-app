@@ -1,7 +1,6 @@
-import { LinearGradient } from 'expo-linear-gradient'
 import { StyleSheet, Text, View } from 'react-native'
 
-import { BorderRadius, Colors, FontSize, FontWeight, Spacing } from '@/constants'
+import { Card, BorderRadius, Colors, FontSize, FontWeight, Spacing } from '@/constants'
 import { formatCurrency } from '@/utils/format'
 
 interface HeroCardProps {
@@ -12,42 +11,38 @@ interface HeroCardProps {
 
 export function HeroCard({ income, expense, savings }: HeroCardProps) {
   return (
-    <View style={styles.container}>
-      <LinearGradient
-        colors={[Colors.income.start, Colors.income.end]}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-        style={styles.gradient}
-      >
+    <Card style={styles.container}>
+      <View style={styles.mainSection}>
         <Text style={styles.label}>Ahorro del mes</Text>
         <Text style={[styles.amount, savings < 0 && styles.negative]}>
           {formatCurrency(savings)}
         </Text>
-      </LinearGradient>
+      </View>
 
       <View style={styles.row}>
         <View style={styles.statCard}>
-          <View style={[styles.dot, { backgroundColor: Colors.success }]} />
+          <View style={[styles.dot, styles.incomeDot]} />
           <Text style={styles.statLabel}>Ingresos</Text>
           <Text style={styles.statAmount}>{formatCurrency(income)}</Text>
         </View>
         <View style={styles.statCard}>
-          <View style={[styles.dot, { backgroundColor: Colors.danger }]} />
+          <View style={[styles.dot, styles.expenseDot]} />
           <Text style={styles.statLabel}>Gastos</Text>
           <Text style={styles.statAmount}>{formatCurrency(expense)}</Text>
         </View>
       </View>
-    </View>
+    </Card>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    gap: Spacing.md,
+    padding: 0,
+    overflow: 'hidden',
   },
-  gradient: {
-    borderRadius: BorderRadius.xl,
-    padding: Spacing.lg,
+  mainSection: {
+    backgroundColor: Colors.accentCyan,
+    paddingVertical: Spacing.xl,
     alignItems: 'center',
   },
   label: {
@@ -59,37 +54,41 @@ const styles = StyleSheet.create({
   amount: {
     fontSize: FontSize.hero,
     fontWeight: FontWeight.bold,
-    color: Colors.textPrimary,
+    color: '#FFFFFF',
   },
   negative: {
-    color: '#FCA5A5',
+    color: 'rgba(255,255,255,0.9)',
   },
   row: {
     flexDirection: 'row',
+    padding: Spacing.md,
     gap: Spacing.md,
   },
   statCard: {
     flex: 1,
-    backgroundColor: Colors.card,
-    borderRadius: BorderRadius.lg,
-    padding: Spacing.md,
-    borderWidth: 1,
-    borderColor: Colors.border,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Spacing.sm,
   },
   dot: {
     width: 8,
     height: 8,
     borderRadius: 4,
-    marginBottom: Spacing.xs,
+  },
+  incomeDot: {
+    backgroundColor: Colors.success,
+  },
+  expenseDot: {
+    backgroundColor: Colors.danger,
   },
   statLabel: {
-    fontSize: FontSize.xs,
+    fontSize: FontSize.sm,
     color: Colors.textSecondary,
-    marginBottom: 2,
   },
   statAmount: {
     fontSize: FontSize.lg,
     fontWeight: FontWeight.semibold,
     color: Colors.textPrimary,
+    marginLeft: 'auto',
   },
 })

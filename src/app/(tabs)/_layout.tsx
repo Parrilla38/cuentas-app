@@ -5,7 +5,7 @@ import { Icon } from '@/components/ui/Icon'
 import { Colors } from '@/constants/colors'
 
 function TabIcon({ name, color }: { name: string; color: ColorValue }) {
-  return <Icon name={name} size={24} color={color} />
+  return <Icon name={name} size={22} color={color} />
 }
 
 export default function TabLayout() {
@@ -71,18 +71,18 @@ export default function TabLayout() {
 
 const styles = StyleSheet.create({
   tabBar: {
-    backgroundColor: Colors.cardSolid,
+    backgroundColor: Colors.card,
     borderTopColor: Colors.border,
     borderTopWidth: 1,
-    height: Platform.OS === 'ios' ? 88 : 64,
-    paddingBottom: Platform.OS === 'ios' ? 28 : 8,
+    height: Platform.OS === 'ios' ? 84 : 64,
+    paddingBottom: Platform.OS === 'ios' ? 24 : 8,
     paddingTop: 8,
   },
   tabBarLabel: {
     fontSize: 11,
-    fontWeight: '600',
+    fontWeight: '500',
   },
   tabBarItem: {
-    paddingVertical: 4,
+    paddingVertical: 2,
   },
 })

@@ -11,10 +11,11 @@ import {
   View,
 } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { Ionicons } from '@expo/vector-icons'
 
 import { Icon } from '@/components/ui/Icon'
 import { Button } from '@/components/ui'
-import { Colors, FontSize, FontWeight, Spacing, BorderRadius } from '@/constants'
+import { Colors, FontSize, FontWeight, Spacing, BorderRadius, Shadow } from '@/constants'
 import { useAuthStore } from '@/stores/auth'
 import { showAlert } from '@/utils/alert'
 
@@ -76,7 +77,7 @@ export default function RegisterScreen() {
           contentContainerStyle={styles.scrollContent}
           keyboardShouldPersistTaps="handled"
         >
-          <View style={styles.form}>
+          <View style={styles.card}>
             <View style={styles.inputGroup}>
               <Text style={styles.label}>Email</Text>
               <TextInput
@@ -122,16 +123,16 @@ export default function RegisterScreen() {
               onPress={handleRegister}
               disabled={isLoading}
             />
-
-            <Pressable
-              onPress={() => router.replace('/auth/login' as any)}
-              style={styles.loginButton}
-            >
-              <Text style={styles.loginText}>
-                ¿Ya tienes cuenta? <Text style={styles.loginLink}>Inicia sesión</Text>
-              </Text>
-            </Pressable>
           </View>
+
+          <Pressable
+            onPress={() => router.replace('/auth/login' as any)}
+            style={styles.loginButton}
+          >
+            <Text style={styles.loginText}>
+              ¿Ya tienes cuenta? <Text style={styles.loginLink}>Inicia sesión</Text>
+            </Text>
+          </Pressable>
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
@@ -151,7 +152,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: Spacing.md,
-    paddingVertical: Spacing.sm,
+    paddingVertical: Spacing.md,
   },
   backButton: {
     width: 40,
@@ -169,6 +170,12 @@ const styles = StyleSheet.create({
     padding: Spacing.lg,
     justifyContent: 'center',
   },
+  card: {
+    backgroundColor: Colors.card,
+    borderRadius: BorderRadius.xl,
+    padding: Spacing.lg,
+    ...Shadow.medium,
+  },
   form: {
     gap: Spacing.lg,
   },
@@ -181,10 +188,10 @@ const styles = StyleSheet.create({
     color: Colors.textSecondary,
   },
   input: {
-    backgroundColor: Colors.card,
+    backgroundColor: Colors.background,
     borderRadius: BorderRadius.md,
     paddingHorizontal: Spacing.md,
-    paddingVertical: Spacing.sm,
+    paddingVertical: Spacing.md,
     color: Colors.textPrimary,
     fontSize: FontSize.md,
     borderWidth: 1,
@@ -192,7 +199,7 @@ const styles = StyleSheet.create({
   },
   loginButton: {
     alignItems: 'center',
-    padding: Spacing.md,
+    padding: Spacing.xl,
   },
   loginText: {
     fontSize: FontSize.md,
