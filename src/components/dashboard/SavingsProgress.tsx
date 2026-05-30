@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
   },
   barBackground: {
     height: 10,
-    backgroundColor: 'rgba(255,255,255,0.1)',
+    backgroundColor: Colors.border,
     borderRadius: 5,
     overflow: 'hidden',
     marginBottom: Spacing.md,

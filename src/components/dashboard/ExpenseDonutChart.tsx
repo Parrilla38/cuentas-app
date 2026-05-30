@@ -12,11 +12,8 @@ interface ExpenseDonutChartProps {
 export function ExpenseDonutChart({ data }: ExpenseDonutChartProps) {
   if (data.length === 0) {
     return (
-      <View style={styles.container}>
-        <Text style={styles.title}>Gastos por categoría</Text>
-        <View style={styles.empty}>
-          <Text style={styles.emptyText}>Sin gastos este mes</Text>
-        </View>
+      <View style={styles.emptyContainer}>
+        <Text style={styles.emptyText}>Sin gastos este mes</Text>
       </View>
     )
   }
@@ -30,20 +27,19 @@ export function ExpenseDonutChart({ data }: ExpenseDonutChartProps) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Gastos por categoría</Text>
       <View style={styles.chartContainer}>
         <PieChart
           data={chartData}
           donut
           showGradient
           sectionAutoFocus
-          radius={80}
-          innerRadius={50}
-          innerCircleColor={Colors.background}
+          radius={70}
+          innerRadius={45}
+          innerCircleColor={Colors.card}
           centerLabelComponent={() => (
             <View style={styles.centerLabel}>
               <Text style={styles.centerAmount}>{formatCurrency(total)}</Text>
-              <Text style={styles.centerLabel}>Total</Text>
+              <Text style={styles.centerText}>Total</Text>
             </View>
           )}
         />
@@ -65,40 +61,33 @@ export function ExpenseDonutChart({ data }: ExpenseDonutChartProps) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.card,
-    borderRadius: BorderRadius.xl,
-    padding: Spacing.lg,
-    borderWidth: 1,
-    borderColor: Colors.border,
+    gap: Spacing.md,
   },
-  title: {
-    fontSize: FontSize.lg,
-    fontWeight: FontWeight.semibold,
-    color: Colors.textPrimary,
-    marginBottom: Spacing.md,
-  },
-  empty: {
+  emptyContainer: {
     alignItems: 'center',
-    paddingVertical: Spacing.xl,
+    paddingVertical: Spacing.lg,
   },
   emptyText: {
-    fontSize: FontSize.md,
+    fontSize: FontSize.sm,
     color: Colors.textSecondary,
   },
   chartContainer: {
     alignItems: 'center',
-    marginVertical: Spacing.md,
   },
   centerLabel: {
     alignItems: 'center',
   },
   centerAmount: {
-    fontSize: FontSize.lg,
+    fontSize: FontSize.md,
     fontWeight: FontWeight.bold,
     color: Colors.textPrimary,
   },
+  centerText: {
+    fontSize: FontSize.xs,
+    color: Colors.textSecondary,
+  },
   legend: {
-    gap: Spacing.sm,
+    gap: Spacing.xs,
   },
   legendItem: {
     flexDirection: 'row',
@@ -106,9 +95,9 @@ const styles = StyleSheet.create({
     gap: Spacing.sm,
   },
   legendDot: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
+    width: 8,
+    height: 8,
+    borderRadius: 4,
   },
   legendName: {
     flex: 1,
