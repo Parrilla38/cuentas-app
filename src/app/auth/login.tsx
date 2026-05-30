@@ -11,6 +11,7 @@ import {
   View,
 } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { Ionicons } from '@expo/vector-icons'
 
 import { Button } from '@/components/ui'
 import { Colors, FontSize, FontWeight, Spacing, BorderRadius } from '@/constants'
@@ -20,6 +21,7 @@ import { showAlert } from '@/utils/alert'
 export default function LoginScreen() {
   const router = useRouter()
   const signIn = useAuthStore((s) => s.signIn)
+  const signInWithGoogle = useAuthStore((s) => s.signInWithGoogle)
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -38,6 +40,16 @@ export default function LoginScreen() {
     } catch (error: any) {
       showAlert('Error', error.message || 'No se pudo iniciar sesión')
     } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const handleGoogleLogin = async () => {
+    setIsLoading(true)
+    try {
+      await signInWithGoogle()
+    } catch (error: any) {
+      showAlert('Error', error.message || 'No se pudo iniciar sesión con Google')
       setIsLoading(false)
     }
   }
@@ -100,6 +112,15 @@ export default function LoginScreen() {
               <Text style={styles.dividerText}>o</Text>
               <View style={styles.dividerLine} />
             </View>
+
+            <Pressable
+              onPress={handleGoogleLogin}
+              style={styles.googleButton}
+              disabled={isLoading}
+            >
+              <Ionicons name="logo-google" size={20} color={Colors.textPrimary} />
+              <Text style={styles.googleButtonText}>Continuar con Google</Text>
+            </Pressable>
 
             <Pressable
               onPress={() => router.push('/auth/register' as any)}
@@ -183,6 +204,22 @@ const styles = StyleSheet.create({
   dividerText: {
     fontSize: FontSize.sm,
     color: Colors.textSecondary,
+  },
+  googleButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: Spacing.sm,
+    backgroundColor: Colors.card,
+    borderRadius: BorderRadius.md,
+    paddingVertical: Spacing.md,
+    borderWidth: 1,
+    borderColor: Colors.border,
+  },
+  googleButtonText: {
+    fontSize: FontSize.md,
+    fontWeight: FontWeight.medium,
+    color: Colors.textPrimary,
   },
   registerButton: {
     alignItems: 'center',
