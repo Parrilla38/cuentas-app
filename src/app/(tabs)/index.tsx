@@ -57,7 +57,7 @@ export default function DashboardScreen() {
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.loadingContainer}>
-          <Text style={styles.loadingText}>Cargando...</Text>
+          <ActivityIndicator size="large" color="#22D3EE" />
         </View>
       </SafeAreaView>
     )
@@ -73,7 +73,7 @@ export default function DashboardScreen() {
           <RefreshControl
             refreshing={isLoading}
             onRefresh={onRefresh}
-            tintColor={Colors.accentCyan}
+            tintColor="#22D3EE"
           />
         }
       >
@@ -117,58 +117,55 @@ export default function DashboardScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.background,
+    backgroundColor: '#0F172A',
   },
   loadingContainer: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  loadingText: {
-    fontSize: FontSize.md,
-    color: Colors.textSecondary,
-  },
   scrollView: {
     flex: 1,
   },
   scrollContent: {
-    padding: Spacing.lg,
-    gap: Spacing.lg,
+    padding: 24,
+    gap: 24,
     paddingBottom: 100,
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: Spacing.md,
+    marginBottom: 16,
   },
   settingsButton: {
     width: 44,
     height: 44,
     borderRadius: 22,
-    backgroundColor: Colors.card,
+    backgroundColor: 'rgba(255,255,255,0.08)',
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: Colors.border,
+    borderColor: 'rgba(255,255,255,0.1)',
   },
   settingsIcon: {
     fontSize: 20,
+    color: '#94A3B8',
   },
   greeting: {
-    fontSize: FontSize.xl,
-    fontWeight: FontWeight.bold,
-    color: Colors.textPrimary,
+    fontSize: 24,
+    fontWeight: '700',
+    color: '#F8FAFC',
   },
   month: {
-    fontSize: FontSize.md,
-    color: Colors.textSecondary,
-    marginTop: Spacing.xs,
+    fontSize: 15,
+    color: '#94A3B8',
+    marginTop: 4,
   },
   sectionTitle: {
-    fontSize: FontSize.lg,
-    fontWeight: FontWeight.semibold,
-    color: Colors.textPrimary,
-    marginBottom: Spacing.md,
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#F8FAFC',
+    marginBottom: 16,
   },
 })

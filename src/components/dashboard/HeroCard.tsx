@@ -39,11 +39,9 @@ const styles = StyleSheet.create({
   container: {
     borderRadius: BorderRadius.lg,
     overflow: 'hidden',
-    borderWidth: 1,
-    borderColor: Colors.border,
   },
   mainSection: {
-    backgroundColor: '#06B6D4',
+    backgroundColor: Colors.accentCyan,
     paddingVertical: Spacing.xl,
     alignItems: 'center',
   },
@@ -64,8 +62,8 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     padding: Spacing.md,
-    backgroundColor: '#F5F5F5',
     gap: Spacing.md,
+    backgroundColor: Colors.card,
   },
   statCard: {
     flex: 1,
@@ -79,19 +77,19 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   incomeDot: {
-    backgroundColor: '#22C55E',
+    backgroundColor: Colors.success,
   },
   expenseDot: {
-    backgroundColor: '#EF4444',
+    backgroundColor: Colors.danger,
   },
   statLabel: {
     fontSize: FontSize.sm,
-    color: '#71717A',
+    color: Colors.textSecondary,
   },
   statAmount: {
     fontSize: FontSize.lg,
     fontWeight: FontWeight.semibold,
-    color: '#18181B',
+    color: Colors.textPrimary,
     marginLeft: 'auto',
   },
 })
