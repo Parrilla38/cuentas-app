@@ -1,41 +1,50 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js'
 
-let client: SupabaseClient | null = null
-
-function getClient(): SupabaseClient {
-  if (!client) {
-    const url = process.env.EXPO_PUBLIC_SUPABASE_URL || ''
-    const key = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY || ''
-    if (!url || !key) {
-      return createFallbackClient()
-    }
-    client = createClient(url, key)
+function createSupabaseClient(): SupabaseClient {
+  const url = process.env.EXPO_PUBLIC_SUPABASE_URL || ''
+  const key = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY || ''
+  
+  if (!url || !key) {
+    const mockClient = {
+      from: () => ({ select: () => ({ data: [], error: null }), insert: () => ({ error: null }), update: () => ({ eq: () => ({ error: null }) }), delete: () => ({ eq: () => ({ error: null }) }) }),
+      auth: { 
+        getSession: async () => ({ data: { session: null }, error: null }), 
+        signInWithPassword: async () => ({ data: null, error: null }), 
+        signUp: async () => ({ data: null, error: null }), 
+        signInWithOAuth: async () => ({ data: null, error: null }), 
+        signOut: async () => ({ error: null }), 
+        resetPasswordForEmail: async () => ({ data: null, error: null }), 
+        updateUser: async () => ({ data: null, error: null }), 
+        onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => {} } } }) 
+      },
+      rpc: async () => ({ data: null, error: null }),
+    } as unknown as SupabaseClient
+    return mockClient
   }
-  return client
+  
+  return createClient(url, key)
 }
 
-function createFallbackClient(): SupabaseClient {
-  return {
-    from: () => ({ select: () => ({ data: [], error: null }), insert: () => ({ error: null }), update: () => ({ eq: () => ({ error: null }) }), delete: () => ({ eq: () => ({ error: null }) }) }),
-    auth: { getSession: async () => ({ data: { session: null }, error: null }), signInWithPassword: async () => ({ data: null, error: null }), signUp: async () => ({ data: null, error: null }), signInWithOAuth: async () => ({ data: null, error: null }), signOut: async () => ({ error: null }), resetPasswordForEmail: async () => ({ data: null, error: null }), updateUser: async () => ({ data: null, error: null }), onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => {} } } }) },
-    rpc: async () => ({ data: null, error: null }),
-  } as unknown as SupabaseClient
+let supabaseInstance: SupabaseClient | null = null
+
+export function getSupabase(): SupabaseClient {
+  if (!supabaseInstance) {
+    supabaseInstance = createSupabaseClient()
+  }
+  return supabaseInstance
 }
 
-const supabaseClient = {
+export const supabase = {
+  from: (table: string) => getSupabase().from(table),
   auth: {
-    getSession: () => getClient().auth.getSession(),
-    signInWithPassword: (options: any) => getClient().auth.signInWithPassword(options),
-    signUp: (options: any) => getClient().auth.signUp(options),
-    signInWithOAuth: (options: any) => getClient().auth.signInWithOAuth(options),
-    signOut: () => getClient().auth.signOut(),
-    resetPasswordForEmail: (email: string) => getClient().auth.resetPasswordForEmail(email),
-    updateUser: (options: any) => getClient().auth.updateUser(options),
-    onAuthStateChange: (callback: any) => getClient().auth.onAuthStateChange(callback),
+    getSession: () => getSupabase().auth.getSession(),
+    signInWithPassword: (options: any) => getSupabase().auth.signInWithPassword(options),
+    signUp: (options: any) => getSupabase().auth.signUp(options),
+    signInWithOAuth: (options: any) => getSupabase().auth.signInWithOAuth(options),
+    signOut: () => getSupabase().auth.signOut(),
+    resetPasswordForEmail: (email: string) => getSupabase().auth.resetPasswordForEmail(email),
+    updateUser: (options: any) => getSupabase().auth.updateUser(options),
+    onAuthStateChange: (callback: any) => getSupabase().auth.onAuthStateChange(callback),
   },
-  from: (table: string) => getClient().from(table),
-  rpc: (fn: string, params?: any) => getClient().rpc(fn, params),
+  rpc: (fn: string, params?: any) => getSupabase().rpc(fn, params),
 }
-
-export default supabaseClient
-export const supabase = supabaseClient

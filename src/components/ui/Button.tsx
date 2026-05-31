@@ -11,12 +11,10 @@ interface ButtonProps {
 }
 
 export function Button({ title, onPress, variant = 'primary', disabled = false, style }: ButtonProps) {
-  const isDisabled = disabled || isLoading
-
   return (
     <Pressable
       onPress={onPress}
-      disabled={isDisabled}
+      disabled={disabled}
       style={({ pressed }) => [
         styles.container,
         variant === 'primary' && styles.primary,
@@ -24,7 +22,7 @@ export function Button({ title, onPress, variant = 'primary', disabled = false, 
         variant === 'ghost' && styles.ghost,
         variant === 'danger' && styles.danger,
         pressed && styles.pressed,
-        isDisabled && styles.disabled,
+        disabled && styles.disabled,
         style,
       ]}
     >
@@ -40,8 +38,6 @@ export function Button({ title, onPress, variant = 'primary', disabled = false, 
     </Pressable>
   )
 }
-
-const isLoading = false
 
 const styles = StyleSheet.create({
   container: {
