@@ -12,7 +12,8 @@ import {
   SavingsProgress,
   UpcomingPayments,
 } from '@/components/dashboard'
-import { Card, Colors, FontSize, FontWeight, Spacing } from '@/constants'
+import { Card } from '@/components/ui/Card'
+import { Colors, FontSize, FontWeight, Spacing } from '@/constants'
 import { calculateHealthScore } from '@/services/health-score'
 import { useDashboardStore } from '@/stores/dashboard'
 import { useAuthStore } from '@/stores/auth'

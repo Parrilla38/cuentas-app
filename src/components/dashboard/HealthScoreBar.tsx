@@ -27,11 +27,11 @@ export function HealthScoreBar({ score }: HealthScoreBarProps) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#F5F5F5',
+    backgroundColor: Colors.card,
     borderRadius: BorderRadius.lg,
     padding: Spacing.md,
     borderWidth: 1,
-    borderColor: '#E4E4E7',
+    borderColor: Colors.border,
   },
   header: {
     flexDirection: 'row',
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: FontSize.md,
     fontWeight: FontWeight.semibold,
-    color: '#18181B',
+    color: Colors.textPrimary,
   },
   score: {
     fontSize: FontSize.xxl,
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   },
   barBackground: {
     height: 8,
-    backgroundColor: '#E4E4E7',
+    backgroundColor: Colors.border,
     borderRadius: 4,
     overflow: 'hidden',
   },
